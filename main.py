@@ -25,6 +25,7 @@ motors.lift_init()
 motors.grabber_init()
 
 #Sajjads changes
+#Sajjads 2. change
 
 # FIND WALL - ACTION
 motors.drive_forward()
