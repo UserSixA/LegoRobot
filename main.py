@@ -28,7 +28,7 @@ motors.grabber_init()
 motors.drive_forward()
 if(sensors.edge_detected()) motors.turn_right_90()
 
-
+#Hello
 
 
 # BLOCK DETECTION - ACTION
