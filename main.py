@@ -24,6 +24,7 @@ state = FIND_WALL
 motors.lift_init()
 motors.grabber_init()
 
+#Sajjads changes
 
 # FIND WALL - ACTION
 motors.drive_forward()
