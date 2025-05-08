@@ -28,8 +28,6 @@ motors.grabber_init()
 motors.drive_forward()
 if(sensors.edge_detected()) motors.turn_right_90()
 
-#Hello
-
 
 # BLOCK DETECTION - ACTION
 motors.lift_up()
@@ -51,7 +49,7 @@ wait(1000)
 motors.drive_backward()
 wait(1000)
 
-
+# Test1
 
 #motors.turn_left_90()
 #wait(4000)
