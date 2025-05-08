@@ -42,7 +42,6 @@ motors.turn_left_90()
 motors.lift_down()
 motors.lift_weak_down()
 
-
 wait(1000)
 motors.turn_left()
 wait(1000)
@@ -51,7 +50,6 @@ wait(1000)
 
 #motors.turn_left_90()
 #wait(4000)
-
 
 # Main loop
 while True:
