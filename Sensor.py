@@ -1,4 +1,4 @@
-from pybricks.ev3devices import ColorSensor, TouchSensor, UltrasonicSensor, InfraredSensor
+from pybricks.ev3devices import ColorSensor, UltrasonicSensor, InfraredSensor
 from pybricks.parameters import Port
 
 BLOCK_DETECTION_THRESHOLD = 5
@@ -6,10 +6,9 @@ EDGE_DETECTION_THRESHOLD = 50
 
 class Sensors:
     def __init__(self):
-        self.color_sensor = ColorSensor(Port.S1)
-        self.touch_sensor = TouchSensor(Port.S2)
-        self.ultrasonic_sensor = UltrasonicSensor(Port.S3)
-        self.infrared_sensor = InfraredSensor(Port.S4)
+        self.color_sensor = ColorSensor(Port.S2)
+        self.ultrasonic_sensor = UltrasonicSensor(Port.S4)
+        self.infrared_sensor = InfraredSensor(Port.S3)
 
     def get_color(self):
         r, g, b = self.color_sensor.rgb()
@@ -59,3 +58,7 @@ class Sensors:
     def block_detected(self):
         distance = self.infrared_sensor.distance()
         return distance < BLOCK_DETECTION_THRESHOLD
+
+    def holds_block(self):
+        distance = self.get_ultrasonic_distance()
+        return distance < 7

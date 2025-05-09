@@ -21,16 +21,16 @@ state = FIND_WALL
 #motors.grabber_close()
 
 # INIT
-motors.lift_init()
-motors.grabber_init()
+#motors.lift_init()
+#motors.grabber_init()
 
 # FIND WALL - ACTION
-motors.drive_forward()
-if(sensors.edge_detected()) motors.turn_right_90()
+""" motors.drive_forward()
+if(sensors.edge_detected()) motors.turn_right_90() """
 
 
 # BLOCK DETECTION - ACTION
-motors.lift_up()
+""" motors.lift_up()
 motors.turn_right_90()
 motors.lift_drop()
 motors.lift_weak_up()
@@ -39,21 +39,89 @@ motors.lift_weak_up()
 motors.grabber_close()
 motors.lift_weak_up()
 motors.turn_left_90()
-motors.lift_down()
-motors.lift_weak_down()
+motors.lift_down() """
+""" motors.lift_weak_down()
 
 wait(1000)
 motors.turn_left()
 wait(1000)
 motors.drive_backward()
-wait(1000)
+wait(1000) """
 
 #motors.turn_left_90()
 #wait(4000)
 
+
+
+
+#motors.grabber_init()
+#motors.grabber_open()
+#wait(1000)
+
+
+""" motors.grabber_close()
+motors.lift_up() """
+
+
+#motors.grabber_open()
+
+#Begining
+motors.lift_up()
+motors.drive_backward()
+while(sensors.get_ultrasonic_distance() > 100):
+    print("still driving")
+wait(190)
+motors.stop_driving()
+motors.grabber_close()
+motors.lift_up()
+wait(300)
+
+distance = sensors.get_ultrasonic_distance()
+if(sensors.holds_block()):
+    ev3.screen.print("Found block")
+    ev3.screen.print("distance: ", distance)
+    motors.drive_forward()
+    wait(1800)
+    motors.stop_driving()
+    motors.lift_down()
+    motors.lift_drop()
+    wait(1000)
+    motors.grabber_open()
+
+    motors.grabber_open()
+    motors.lift_up()
+    motors.grabber_close()
+    motors.lift_up()
+else:
+    ev3.screen.print("No block")
+    ev3.screen.print("distance: ", distance)
+
+
+
+
+
+""" wait(10000)
+
+motors.lift_down()
+motors.grabber_open() """
+
+
 # Main loop
 while True:
-    color = sensors.get_color()
+    
+
+    """ distance = sensors.get_ultrasonic_distance()
+    ev3.screen.print("Distance: ", distance)
+    print("Distance: ", distance)
+    wait(200) """
+
+    """ color = sensors.get_color()
+    ev3.screen.print("Color:      ", color)
+    wait(200) """
+
+
+
+
     """ touched = sensors.is_touched()
     us_dist = sensors.get_ultrasonic_distance()
     ir_dist = sensors.get_infrared_distance()
@@ -61,15 +129,15 @@ while True:
     block_detected = sensors.block_detected() """
 
     # Display on EV3
-    ev3.screen.clear()
-    ev3.screen.print("Color:      ", color)
+    #ev3.screen.clear()
+    #ev3.screen.print("Color:      ", color)
     """ ev3.screen.print("Touch:      ", "Yes" if touched else "No")
     ev3.screen.print("Ultrasonic: ", us_dist, "mm")
     ev3.screen.print("Infrared:   ", ir_dist)
     ev3.screen.print("Edge Det.:  ", edge_detected)
     ev3.screen.print("Block Det.: ", block_detected) """
 
-    print("Color: ", color)
+    #print("Color: ", color)
     """ print("Touch: ", touched)
     print("Ultrasonic: ", us_dist, "mm")
     print("Infrared: ", ir_dist)
@@ -79,8 +147,8 @@ while True:
     print("----------------------") """
 
 
-    """  # --- State Machine ---
-    if state == FIND_WALL:
+     # --- State Machine ---
+    """ if state == FIND_WALL:
         motors.drive_forward()
         if touched:  # Touch sensor used to detect wall
             motors.stop_driving()
@@ -117,9 +185,9 @@ while True:
         motors.drive_backward()
         if touched:
             motors.stop_driving()
-            state = FIND_WALL """
+            state = FIND_WALL
 
     wait(500)
-
+ """
 
 

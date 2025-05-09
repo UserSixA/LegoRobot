@@ -1,17 +1,17 @@
 # Motor.py
-from pybricks.ev3devices import Motor
+from pybricks.ev3devices import Motor, GyroSensor
 from pybricks.parameters import Port
 from pybricks.tools import wait
 
 # Constants
 DRIVE_SPEED = 400
 TURN_SPEED = 400
-LIFT_SPEED = 100
+LIFT_SPEED = 200
 GRAB_SPEED = 800
-LIFT_ANGLE = 40
-LIFT_ANGLE_WEAK = 5
-GRABBER_ANGLE = 360
-TURN_ANGLE_90 = 510
+LIFT_ANGLE = -45
+LIFT_ANGLE_WEAK = 10
+GRABBER_ANGLE = 850
+TURN_ANGLE_90 = 90
 
 
 class Motors:
@@ -20,6 +20,8 @@ class Motors:
         self.grabber_motor = Motor(Port.C)
         self.lift_motor = Motor(Port.B)
         self.left_motor = Motor(Port.A)
+        self.gyro_sensor = GyroSensor(Port.S1)
+        self.gyro_sensor.reset_angle(0)
 
 
     # === Lift Control ===
@@ -79,8 +81,11 @@ class Motors:
         self.right_motor.run(TURN_SPEED)
 
     def turn_left_90(self):
-        self.left_motor.run_angle(-TURN_SPEED, TURN_ANGLE_90, wait=False)
-        self.right_motor.run_angle(TURN_SPEED, TURN_ANGLE_90)
+        self.gyro_sensor.reset_angle(0)
+        self.left_motor.run_angle(-TURN_SPEED)
+        self.right_motor.run_angle(TURN_SPEED)
+
+        
 
     def turn_right_90(self):
         self.left_motor.run_angle(TURN_SPEED, TURN_ANGLE_90, wait=False)
