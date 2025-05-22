@@ -1,26 +1,33 @@
 # Motor.py
 from pybricks.ev3devices import Motor, GyroSensor
-from pybricks.parameters import Port
+from pybricks.parameters import Port, Stop
 from pybricks.tools import wait
+from pybricks.robotics import DriveBase
 
 # Constants
-DRIVE_SPEED = 400
-TURN_SPEED = 400
-LIFT_SPEED = 200
-GRAB_SPEED = 800
-LIFT_ANGLE = -45
-LIFT_ANGLE_WEAK = 10
-GRABBER_ANGLE = 850
-TURN_ANGLE_90 = 90
+DRIVE_SPEED = 200
 
+TURN_SPEED = 400
+LIFT_ANGLE_WEAK = 10
+TURN_ANGLE_90 = 130
+
+
+ROTATE_SPEED = 100
+ROTATE_ANGLE = 300
+
+LIFT_SPEED = 300
+LIFT_ANGLE = -50
+
+GRAB_SPEED = 800
+GRABBER_ANGLE = 850
 
 class Motors:
     def __init__(self):
-        self.right_motor = Motor(Port.D)
-        self.grabber_motor = Motor(Port.C)
+        self.grabber_motor = Motor(Port.D)
+        self.drive_motor = Motor(Port.C)
         self.lift_motor = Motor(Port.B)
-        self.left_motor = Motor(Port.A)
-        self.gyro_sensor = GyroSensor(Port.S1)
+        self.rotate_motor = Motor(Port.A)
+        self.gyro_sensor = GyroSensor(Port.S4)
         self.gyro_sensor.reset_angle(0)
 
 
@@ -35,13 +42,16 @@ class Motors:
         self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE_WEAK)
 
     def lift_up(self):
-        self.lift_motor.run_angle(LIFT_SPEED, -LIFT_ANGLE)
+        self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE, then=Stop.HOLD, wait=True)
+        wait(500)
+        #self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE, then=Stop.HOLD, wait=True)
 
     def lift_down(self):
         self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE)
     
     def lift_drop(self):
         self.lift_motor.stop()
+
 
     # === Grabber Control ===
     def grabber_init(self):
@@ -55,38 +65,22 @@ class Motors:
         self.grabber_motor.run_angle(GRAB_SPEED, 4 * GRABBER_ANGLE)
         self.grabber_motor.stop()
 
+
     # === Drive Control ===
     def drive_backward(self):
-        self.left_motor.run(DRIVE_SPEED)
-        self.right_motor.run(DRIVE_SPEED)
+        self.drive_motor.run(DRIVE_SPEED)
 
     def drive_forward(self):
-        self.left_motor.run(-DRIVE_SPEED)
-        self.right_motor.run(-DRIVE_SPEED)
-
-    def drive_forward_left(self):
-        self.left_motor.run(-DRIVE_SPEED)
-        self.right_motor.run(-DRIVE_SPEED * 0.95)
+        self.drive_motor.run(-DRIVE_SPEED)
 
     def stop_driving(self):
-        self.left_motor.stop()
-        self.right_motor.stop()
+        self.drive_motor.stop()
 
-    def turn_left(self):
-        self.left_motor.run(TURN_SPEED)
-        self.right_motor.run(-TURN_SPEED)
+    # ROTATE
+    def rotate_left(self):
+        self.rotate_motor.run_angle(ROTATE_SPEED, ROTATE_ANGLE, then=Stop.HOLD, wait=True)
+        wait(500)
 
-    def turn_right(self):
-        self.left_motor.run(-TURN_SPEED)
-        self.right_motor.run(TURN_SPEED)
-
-    def turn_left_90(self):
-        self.gyro_sensor.reset_angle(0)
-        self.left_motor.run_angle(-TURN_SPEED)
-        self.right_motor.run_angle(TURN_SPEED)
-
-        
-
-    def turn_right_90(self):
-        self.left_motor.run_angle(TURN_SPEED, TURN_ANGLE_90, wait=False)
-        self.right_motor.run_angle(-TURN_SPEED, TURN_ANGLE_90)
+    def rotate_right(self):
+        self.rotate_motor.run_angle(-ROTATE_SPEED, ROTATE_ANGLE, then=Stop.HOLD, wait=True)
+        wait(500)

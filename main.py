@@ -24,6 +24,109 @@ state = FIND_WALL
 #motors.lift_init()
 #motors.grabber_init()
 
+
+
+##### JETZT
+#motors.lift_up()
+#motors.rotate_right()
+""" motors.drive_backward()
+wait(1000)
+motors.drive_forward()
+wait(1000)
+motors.stop_driving() """
+#ev3.speaker.say("Ben")
+
+
+
+######## Tischkante #######  FUNKTIONIERT GETESTET
+""" motors.drive_backward()
+while not sensors.back_edge_detected():
+    print("still driving backwards")
+motors.drive_forward()
+while not sensors.front_edge_detected():
+    print("still driving forwards")
+motors.stop_driving()
+ev3.speaker.say("Ben") """
+
+
+######## Blöcke erkennen ####### FUNKTIONIERT GETESTET
+""" first_color = 0
+second_color = 0
+false_color = False
+
+motors.lift_up()
+
+motors.drive_backward()
+while (not sensors.back_edge_detected()) and (not false_color):
+    color = sensors.get_color()
+    if color != "Unkown":
+        if(first_color == 0):
+            first_color = color
+        elif(second_color == 0) and (color != first_color):
+            second_color = color
+        if(first_color != 0) and (second_color != 0) and (color != first_color) and (color != second_color):
+            false_color = True
+
+
+    ev3.screen.clear()
+    ev3.screen.print("Current color : ", color)
+    ev3.screen.print("First color   : ", first_color)
+    ev3.screen.print("Second color  : ", second_color)
+    ev3.screen.print("False color   :", false_color)
+    print("Color      : ", color)
+    print("First color   : ", first_color)
+    print("Second color  : ", second_color)
+    print("False color   :", false_color)
+    print()
+    wait(100)
+motors.stop_driving()
+print("There was a false color: ", false_color)
+ev3.speaker.say("Ben") """
+
+
+
+
+### GREIFEN HEBEN VOM BODEN
+""" #motors.grabber_open()
+motors.lift_up()
+motors.grabber_close()
+motors.lift_up()
+#motors.rotate_left()
+motors.drive_backward()
+wait(2000)
+motors.stop_driving()
+#motors.lift_down()
+#motors.grabber_open() """
+
+
+
+###### BUSSING
+print("START")
+
+#motors.grabber_open()
+motors.lift_up()
+motors.drive_backward()
+color = sensors.get_color()
+while (not sensors.back_edge_detected()) and (color != "Blue"):
+    color = sensors.get_color()
+    print("Still driving...")
+print("Found Block!")
+wait(100)
+motors.stop_driving()
+motors.grabber_close()
+motors.lift_up()
+motors.rotate_right()
+motors.lift_drop()
+motors.grabber_open()
+ev3.speaker.say("Ben")
+
+
+
+#ev3.speaker.say("Robot started")
+
+
+
+
 # FIND WALL - ACTION
 """ motors.drive_forward()
 if(sensors.edge_detected()) motors.turn_right_90() """
@@ -66,7 +169,7 @@ motors.lift_up() """
 #motors.grabber_open()
 
 #Begining
-motors.lift_up()
+""" motors.lift_up()
 motors.drive_backward()
 while(sensors.get_ultrasonic_distance() > 100):
     print("still driving")
@@ -94,7 +197,7 @@ if(sensors.holds_block()):
     motors.lift_up()
 else:
     ev3.screen.print("No block")
-    ev3.screen.print("distance: ", distance)
+    ev3.screen.print("distance: ", distance) """
 
 
 
@@ -110,14 +213,20 @@ motors.grabber_open() """
 while True:
     
 
-    """ distance = sensors.get_ultrasonic_distance()
-    ev3.screen.print("Distance: ", distance)
-    print("Distance: ", distance)
-    wait(200) """
+    color = sensors.get_color()
+    us_dist = sensors.get_ultrasonic_distance()
+    ir_dist = sensors.get_infrared_distance()
 
-    """ color = sensors.get_color()
-    ev3.screen.print("Color:      ", color)
-    wait(200) """
+    ev3.screen.clear()
+    ev3.screen.print("US distance: ", us_dist)
+    ev3.screen.print("IR distance: ", ir_dist)
+    ev3.screen.print("Color      : ", color)
+
+    print("US distance: ", us_dist)
+    print("IR distance: ", ir_dist)
+    print("Color      : ", color)
+    print()
+    wait(200)
 
 
 
