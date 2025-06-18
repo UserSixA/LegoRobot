@@ -47,9 +47,6 @@ class Sensors:
         else:
             return "Unknown"
 
-    def is_touched(self):
-        return self.touch_sensor.pressed()
-
     def get_ultrasonic_distance(self):
         return self.ultrasonic_sensor.distance()
 
@@ -63,11 +60,3 @@ class Sensors:
     def back_edge_detected(self):
         distance = self.infrared_sensor.distance()
         return EDGE_DETECTION_IR_THRESHOLD < distance < 2000
-
-    def block_detected(self):
-        distance = self.infrared_sensor.distance()
-        return distance < BLOCK_DETECTION_THRESHOLD
-
-    def holds_block(self):
-        distance = self.get_ultrasonic_distance()
-        return distance < 7

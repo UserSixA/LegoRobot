@@ -7,13 +7,8 @@ from pybricks.robotics import DriveBase
 # Constants
 DRIVE_SPEED = 200
 
-TURN_SPEED = 400
-LIFT_ANGLE_WEAK = 10
-TURN_ANGLE_90 = 130
-
-
 ROTATE_SPEED = 100
-ROTATE_ANGLE = 300
+ROTATE_ANGLE = 95
 
 LIFT_SPEED = 300
 LIFT_ANGLE = -50
@@ -32,15 +27,6 @@ class Motors:
 
 
     # === Lift Control ===
-    def lift_init(self):
-        self.lift_motor.run_angle(LIFT_SPEED, -22)
-
-    def lift_weak_up(self):
-        self.lift_motor.run_angle(LIFT_SPEED, -LIFT_ANGLE_WEAK)
-
-    def lift_weak_down(self):
-        self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE_WEAK)
-
     def lift_up(self):
         self.lift_motor.run_angle(LIFT_SPEED, LIFT_ANGLE, then=Stop.HOLD, wait=True)
         wait(500)
@@ -54,10 +40,6 @@ class Motors:
 
 
     # === Grabber Control ===
-    def grabber_init(self):
-        self.grabber_motor.run_angle(GRAB_SPEED, 5 * -GRABBER_ANGLE)
-        self.grabber_motor.run_angle(GRAB_SPEED, 5 * GRABBER_ANGLE)
-
     def grabber_close(self):
         self.grabber_motor.run_angle(GRAB_SPEED, 4 * -GRABBER_ANGLE)
 
@@ -76,7 +58,8 @@ class Motors:
     def stop_driving(self):
         self.drive_motor.stop()
 
-    # ROTATE
+
+    # === Rotate Control ===
     def rotate_left(self):
         self.rotate_motor.run_angle(ROTATE_SPEED, ROTATE_ANGLE, then=Stop.HOLD, wait=True)
         wait(500)
