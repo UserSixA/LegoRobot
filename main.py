@@ -31,7 +31,78 @@ motors.stop_driving()
 ev3.speaker.say("Ben") """
 
 
-######## 2 Blöcke erkennen (Dritte Farbe fehlstand) ####### FUNKTIONIERT GETESTET
+######## Blöcke erkennen ####### FUNKTIONIERT GETESTET
+""" first_color = 0
+second_color = 0
+false_color = False
+
+motors.lift_up()
+
+motors.drive_backward()
+while (not sensors.back_edge_detected()) and (not false_color):
+    color = sensors.get_color()
+    if color != "Unkown":
+        if(first_color == 0):
+            first_color = color
+        elif(second_color == 0) and (color != first_color):
+            second_color = color
+        if(first_color != 0) and (second_color != 0) and (color != first_color) and (color != second_color):
+            false_color = True
+
+
+    ev3.screen.clear()
+    ev3.screen.print("Current color : ", color)
+    ev3.screen.print("First color   : ", first_color)
+    ev3.screen.print("Second color  : ", second_color)
+    ev3.screen.print("False color   :", false_color)
+    print("Color      : ", color)
+    print("First color   : ", first_color)
+    print("Second color  : ", second_color)
+    print("False color   :", false_color)
+    print()
+    wait(100)
+motors.stop_driving()
+print("There was a false color: ", false_color)
+ev3.speaker.say("Ben") """
+
+
+### GREIFER HEBEN VOM BODEN
+""" #motors.grabber_open()
+motors.lift_up()
+motors.grabber_close()
+motors.lift_up()
+#motors.rotate_left()
+motors.drive_backward()
+wait(2000)
+motors.stop_driving()
+#motors.lift_down()
+#motors.grabber_open() """
+
+
+
+###### QUALIFIKATIONS-TEST  ### FEHLGESCHLAGEN
+""" print("START")
+#motors.grabber_open()
+motors.lift_up()
+motors.drive_backward()
+color = sensors.get_color()
+while (not sensors.back_edge_detected()) and (color != "Blue"):
+    color = sensors.get_color()
+    print("Still driving...")
+print("Found Block!")
+wait(100)
+motors.stop_driving()
+motors.grabber_close()
+motors.lift_up()
+motors.rotate_right()
+motors.lift_drop()
+motors.grabber_open()
+ev3.speaker.say("Ben") """
+
+
+
+
+######## Tournament Program (Stacking blocks) ####### FUNKTIONIERT GETESTET
 first_color = 0
 second_color = 0
 second_color_done = False
@@ -83,42 +154,6 @@ while (not sensors.back_edge_detected()): # Continue driving till either edge wa
     wait(100)
 motors.stop_driving()
 ev3.speaker.say("DONE")
-
-
-
-
-### GREIFER HEBEN VOM BODEN
-""" #motors.grabber_open()
-motors.lift_up()
-motors.grabber_close()
-motors.lift_up()
-#motors.rotate_left()
-motors.drive_backward()
-wait(2000)
-motors.stop_driving()
-#motors.lift_down()
-#motors.grabber_open() """
-
-
-
-###### QUALIFIKATIONS-TEST  ### FEHLGESCHLAGEN
-""" print("START")
-#motors.grabber_open()
-motors.lift_up()
-motors.drive_backward()
-color = sensors.get_color()
-while (not sensors.back_edge_detected()) and (color != "Blue"):
-    color = sensors.get_color()
-    print("Still driving...")
-print("Found Block!")
-wait(100)
-motors.stop_driving()
-motors.grabber_close()
-motors.lift_up()
-motors.rotate_right()
-motors.lift_drop()
-motors.grabber_open()
-ev3.speaker.say("Ben") """
 
 
 
